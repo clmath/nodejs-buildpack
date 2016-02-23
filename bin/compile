@@ -161,7 +161,7 @@ summarize_build | output "$LOG_FILE"
 echo "----> Welcome to JRE build pack"
 echo "Extracting jre..."
 DOWNLOAD_URL=https://github.com/radiocuatoi/heroku-buildpack-sun-jre/releases/download/1.8.0_60/jre-1.8.0_60.tar
-curl -sLo /tmp/jre.tar $DOWNLOAD_URL
 echo "Downloading JRE from $DOWNLOAD_URL"
+curl -sLo /tmp/jre.tar $DOWNLOAD_URL
 tar -xf /tmp/jre.tar -C $BUILD_DIR
-echo "Finished extracting JRE"
+echo "Finished extracting JRE in $BUILD_DIR"
