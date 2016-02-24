@@ -135,6 +135,17 @@ build_dependencies() {
 header "Building dependencies"
 build_dependencies | output "$LOG_FILE"
 
+get_jre() {
+  echo "Downloading JRE from $JRE_URL"
+  curl --silent --fail --retry 5 --retry-max-time 15 -o /tmp/jre.tar $JRE_URL
+  echo "Extracting JRE to $BUILD_DIR"
+  tar -xf /tmp/jre.tar -C $BUILD_DIR
+  echo "Finished installing JRE"
+}
+
+header "Installing JRE 1.8"
+get_jre | output "$LOG_FILE"
+
 cache_build() {
   local cache_directories=$(get_cache_directories)
 
@@ -150,17 +161,6 @@ cache_build() {
     save_cache_directories "$BUILD_DIR" "$CACHE_DIR" $cache_directories
   fi
   save_signature
-}
-
-header "Installing JRE 1.8"
-get_jre | output "$LOG_FILE"
-
-get_jre() {
-  echo "Downloading JRE from $JRE_URL"
-  curl --silent --fail --retry 5 --retry-max-time 15 -o /tmp/jre.tar $JRE_URL
-  echo "Extracting JRE to $BUILD_DIR"
-  tar -xf /tmp/jre.tar -C $BUILD_DIR
-  echo "Finished installing JRE"
 }
 
 header "Caching build"
